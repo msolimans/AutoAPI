@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoAPI.Infrastructure;
 using AutoAPI.Models;
 using AutoAPI.Models.Context;
 using AutoAPI.Models.Vehicles.Impl;
@@ -15,10 +16,12 @@ namespace AutoAPI.Controllers
     public class VehiclesController : Controller
     {
         private readonly IVehicle _vehicleService;
+        private readonly ICache _cache;
         
-        public VehiclesController(IVehicle vehicleService)
+        public VehiclesController(IVehicle vehicleService, ICache cache)
         {
             _vehicleService = vehicleService;
+            _cache = cache;
         }
         
         // GET /vehicles
@@ -36,16 +39,24 @@ namespace AutoAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(string id)
         {
+            //check if data exists into memory first, if so retrieve it 
+            var v = _cache.Get(id);
+            if (v != null)
+                return Json(new {success = true, message = "Returned Successfully", result = v});
             
-            var v = await _vehicleService.GetById(id);
+            
+            
+            v = await _vehicleService.GetById(id);
             if (v == null)
             {
                 Response.StatusCode = 404; //not found
                 return Json(new {success = false, message = "NOT FOUND"});
             }
+            
+            //cache data into memory for future use.
+            _cache.Store(id, v);
 
             Response.StatusCode = 200;//OK, by default 
-
             return Json(new {success = true, result = v, message = "Returned Successfully"});
         }
         

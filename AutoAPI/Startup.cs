@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoAPI.Infrastructure;
 using AutoAPI.Models;
 using AutoAPI.Models.Context;
 using AutoAPI.Models.Vehicles.Impl;
@@ -17,17 +18,25 @@ namespace AutoAPI
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        private ILoggerFactory LoggerFactory;
+        
+        public Startup(IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            
+            
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+            
+            LoggerFactory = loggerFactory;
+            
             Configuration = builder.Build();
         }
 
         public IConfigurationRoot Configuration { get; }
+          
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -43,6 +52,11 @@ namespace AutoAPI
 
             //hooking up entity framework strategy to be used inside application 
             services.AddTransient<IVehicle, EVehicle>();
+
+
+            var mcd = new MemCache(Configuration, LoggerFactory);
+            
+            services.AddSingleton<ICache>(mcd);
             
             //in case we need to use mongodb inside the whole appliction, just comment the above line and uncomment the followinf one.
             //services.AddTransient<IVehicle, MVehicle>();
