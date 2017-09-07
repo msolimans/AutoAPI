@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoAPI.Models.Vehicles.Impl;
 using AutoAPI.Models.Vehicles.Model;
+using AutoAPI.Models.Vehicles.ViewModel;
 
 namespace AutoAPI.Models
 {
@@ -35,6 +36,11 @@ namespace AutoAPI.Models
         public Task<IEnumerable<Vehicle>> GetAll()
         {
             return _vehicle.GetAll();
+        }
+
+        public Task<IEnumerable<Vehicle>> GetByCriteria(VehicleSearchCriteria criteria)
+        {
+            return _vehicle.GetByCriteria(criteria);
         }
 
         public Task<bool> DeleteById(string id)

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoAPI.Controllers;
 using AutoAPI.Models.Context;
 using AutoAPI.Models.Vehicles.Model;
+using AutoAPI.Models.Vehicles.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,13 +27,10 @@ namespace AutoAPI.Models.Vehicles.Impl
         {
             try
             {
+         
+                _context.Entry(vehicle).State = string.IsNullOrEmpty(vehicle.Id) ? EntityState.Added : EntityState.Modified;
                 _context.Vehicles.Add(vehicle);
-                if(string.IsNullOrEmpty(vehicle.Id))
-                    _context.Entry(vehicle).State = EntityState.Added;
-                else
-                {
-                    _context.Entry(vehicle).State = EntityState.Modified;
-                }
+                
                 int affected = await _context.SaveChangesAsync();
                 if (affected > 0)
                 {
@@ -68,6 +66,21 @@ namespace AutoAPI.Models.Vehicles.Impl
             return await _context.Vehicles.ToListAsync();
         }
 
+       
+
+        //only added for entity frameowrk here 
+        public async Task<IEnumerable<Vehicle>> GetByCriteria(VehicleSearchCriteria vehicle)
+        {
+
+            return await _context.Vehicles.Where(v => 
+                                                 (vehicle == null || string.IsNullOrEmpty(vehicle.Id) || v.Id == vehicle.Id) && 
+                                                 (vehicle == null || string.IsNullOrWhiteSpace(vehicle.Make) ||  v.Make == vehicle.Make) &&
+                                                 (vehicle == null || string.IsNullOrWhiteSpace(vehicle.Model) || v.Model == vehicle.Model) && 
+                                                 (vehicle == null || !vehicle.Year.HasValue || v.Year.Value == vehicle.Year.Value)).ToListAsync();
+            
+           
+        }
+
 
         public async Task<bool> DeleteById(string id)
         {
@@ -83,7 +96,7 @@ namespace AutoAPI.Models.Vehicles.Impl
                     return false;
             }
             catch (Exception ex)
-            {
+            {    
                 //Exception should be logged somewhere
                 throw;
             }

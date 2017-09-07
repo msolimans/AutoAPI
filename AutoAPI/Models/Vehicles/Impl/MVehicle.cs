@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoAPI.Models.Context;
 using AutoAPI.Models.Vehicles.Model;
+using AutoAPI.Models.Vehicles.ViewModel;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -73,6 +74,11 @@ namespace AutoAPI.Models.Vehicles.Impl
 
         }
         
+        public async Task<IEnumerable<Vehicle>> GetByCriteria(VehicleSearchCriteria vehicle)
+        {
+            throw new Exception("No yet implemented");
+            
+        }
         public async Task<IEnumerable<Vehicle>> GetAll()
         {
             List<Vehicle> list = new List<Vehicle>();

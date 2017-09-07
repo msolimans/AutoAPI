@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoAPI.Filters;
 using AutoAPI.Infrastructure;
+using AutoAPI.Infrastructure.Caching;
 using AutoAPI.Models;
 using AutoAPI.Models.Context;
 using AutoAPI.Models.Vehicles.Impl;
@@ -55,7 +56,8 @@ namespace AutoAPI
             services.AddTransient<IVehicle, EVehicle>();
 
 
-            var mcd = new MemCache(Configuration, LoggerFactory);
+            //var mcd = new MemCache(Configuration, LoggerFactory);
+            var mcd = new RedisCache(Configuration, LoggerFactory);
             
             services.AddSingleton<ICache>(mcd);
             
