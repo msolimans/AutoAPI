@@ -1,0 +1,197 @@
+{
+	"id": "4288bea6-78f6-848a-c007-bff8fc60886d",
+	"name": "Auto Service",
+	"description": "",
+	"order": [
+		"01c0a8ab-1933-8392-4825-fe62d49b0f6a",
+		"ed075d80-b96c-e2e2-9e96-d7fd49d1f11c",
+		"a98f3d3a-fb06-0a0c-e1ec-7ec6f474584a",
+		"ca139fb7-5c88-8345-46ca-0f17524d91ea",
+		"c9cd1ad0-a0d8-6857-c3a6-7a06f14c4124"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1504752158643,
+	"owner": "34134",
+	"public": false,
+	"requests": [
+		{
+			"id": "01c0a8ab-1933-8392-4825-fe62d49b0f6a",
+			"headers": "",
+			"headerData": [],
+			"url": "{{base_url}}/vehicles",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "4288bea6-78f6-848a-c007-bff8fc60886d",
+			"data": null,
+			"dataMode": "params",
+			"name": "Get All Vehicles /vehicles",
+			"description": "Get All Vehicles ",
+			"descriptionFormat": "html",
+			"time": 1504752211259,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "a98f3d3a-fb06-0a0c-e1ec-7ec6f474584a",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{base_url}}/vehicles/",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "year",
+					"value": "2017",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "make",
+					"value": "Edge1",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "model",
+					"value": "Ford1",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1504754384845,
+			"name": "Add New Vehicle",
+			"description": "Add New Vehicle ",
+			"collectionId": "4288bea6-78f6-848a-c007-bff8fc60886d",
+			"responses": []
+		},
+		{
+			"id": "c9cd1ad0-a0d8-6857-c3a6-7a06f14c4124",
+			"headers": "",
+			"headerData": [],
+			"url": "{{base_url}}/vehicles/b2534794-8bbe-4dab-8dd4-74f32fd34b51",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "DELETE",
+			"collectionId": "4288bea6-78f6-848a-c007-bff8fc60886d",
+			"data": null,
+			"dataMode": "params",
+			"name": "Delete Vehicle By Id /vehicles/xxx",
+			"description": "Delete Vehicle by Id /vehicle/xxx",
+			"descriptionFormat": "html",
+			"time": 1504755032995,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "ca139fb7-5c88-8345-46ca-0f17524d91ea",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{base_url}}/Vehicles/961d6ae0-41ed-47d4-8674-c688d5332421",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "4288bea6-78f6-848a-c007-bff8fc60886d",
+			"data": [
+				{
+					"key": "id",
+					"value": "961d6ae0-41ed-47d4-8674-c688d5332421",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "year",
+					"value": "2018",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "make",
+					"value": "Edge2",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "model",
+					"value": "Ford2",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "Update Vehicle By Id /vehicles/xxx",
+			"description": "Update current vehicle, returns 404 (not found) if vehicle doesn't exist, 200 if succeeded otherwise 500 in case of server or db error ",
+			"descriptionFormat": "html",
+			"time": 1504754552127,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "ed075d80-b96c-e2e2-9e96-d7fd49d1f11c",
+			"headers": "",
+			"headerData": [],
+			"url": "{{base_url}}/vehicles/b2534794-8bbe-4dab-8dd4-74f32fd34b51",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "4288bea6-78f6-848a-c007-bff8fc60886d",
+			"data": null,
+			"dataMode": "params",
+			"name": "Get Vehicle By Id /vehicles/xxx",
+			"description": "Get Vehicle By Id",
+			"descriptionFormat": "html",
+			"time": 1504752382090,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}

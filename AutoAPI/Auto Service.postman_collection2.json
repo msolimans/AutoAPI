@@ -1,0 +1,128 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Auto Service",
+		"_postman_id": "4288bea6-78f6-848a-c007-bff8fc60886d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Vehicles /vehicles",
+			"request": {
+				"url": "{{base_url}}/vehicles",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get All Vehicles "
+			},
+			"response": []
+		},
+		{
+			"name": "Get Vehicle By Id /vehicles/xxx",
+			"request": {
+				"url": "{{base_url}}/vehicles/b2534794-8bbe-4dab-8dd4-74f32fd34b51",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get Vehicle By Id"
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Vehicle",
+			"request": {
+				"url": "{{base_url}}/vehicles/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "year",
+							"value": "2017",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "make",
+							"value": "Edge1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "model",
+							"value": "Ford1",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Add New Vehicle "
+			},
+			"response": []
+		},
+		{
+			"name": "Update Vehicle By Id /vehicles/xxx",
+			"request": {
+				"url": "{{base_url}}/Vehicles/961d6ae0-41ed-47d4-8674-c688d5332421",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "961d6ae0-41ed-47d4-8674-c688d5332421",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "year",
+							"value": "2018",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "make",
+							"value": "Edge2",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "model",
+							"value": "Ford2",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Update current vehicle, returns 404 (not found) if vehicle doesn't exist, 200 if succeeded otherwise 500 in case of server or db error "
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Vehicle By Id /vehicles/xxx",
+			"request": {
+				"url": "{{base_url}}/vehicles/b2534794-8bbe-4dab-8dd4-74f32fd34b51",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": "Delete Vehicle by Id /vehicle/xxx"
+			},
+			"response": []
+		}
+	]
+}
