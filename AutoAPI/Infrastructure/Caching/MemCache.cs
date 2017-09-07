@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Net;
+using AutoAPI.Infrastructure.Serializations;
 using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
-namespace AutoAPI.Infrastructure
+namespace AutoAPI.Infrastructure.Caching
 {
     public class MemCache: ICache
     {
@@ -42,11 +42,7 @@ namespace AutoAPI.Infrastructure
         {
             try
             {
-                var settings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.Auto};
-
-                var json = JsonConvert.SerializeObject(value, typeof(object), settings);
-
-                _client.Store(StoreMode.Set, key, json);
+                _client.Store(StoreMode.Set, key, JsonEx.Serialize(value));
             }
             catch (Exception ex)
             {
@@ -66,14 +62,20 @@ namespace AutoAPI.Infrastructure
                 
                 
 
-                return JsonConvert.DeserializeObject(value,
-                    new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.Auto});
+                return JsonEx.Deserialize(value);
             }
             catch (Exception ex)
             {
                 //exception should be logged
                 return null;
             }
+
+        }
+
+        public async void Remove(string key)
+        {
+           await _client.RemoveAsync(key);
+            
 
         }
     }
