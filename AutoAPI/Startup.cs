@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoAPI.Filters;
 using AutoAPI.Infrastructure;
 using AutoAPI.Models;
 using AutoAPI.Models.Context;
@@ -62,7 +63,11 @@ namespace AutoAPI
             //services.AddTransient<IVehicle, MVehicle>();
             
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                //global filter for validating model
+                options.Filters.Add(new ValidationModelAttribute());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
