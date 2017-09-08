@@ -19,6 +19,17 @@
 			"response": []
 		},
 		{
+			"name": "Get All Vehicles (Search Citeria)",
+			"request": {
+				"url": "{{base_url}}/vehicles",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get All Vehicles "
+			},
+			"response": []
+		},
+		{
 			"name": "Get Vehicle By Id /vehicles/xxx",
 			"request": {
 				"url": "{{base_url}}/vehicles/b2534794-8bbe-4dab-8dd4-74f32fd34b51",
