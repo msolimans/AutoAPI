@@ -14,6 +14,7 @@ namespace AutoAPI.Models.Context
         }
         public EContext(DbContextOptions<EContext> options) : base(options)
         {
+            
         }
         
         public DbSet<Vehicle> Vehicles { get; set; }
