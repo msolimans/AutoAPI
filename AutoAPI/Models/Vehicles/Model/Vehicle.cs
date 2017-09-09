@@ -23,6 +23,6 @@ namespace AutoAPI.Models.Vehicles.Model
         [Required]
         public string Model { get; set; }
         
-        public string SubModel { get; set; }
+        
     }
 }    
