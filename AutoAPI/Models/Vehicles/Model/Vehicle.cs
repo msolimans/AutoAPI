@@ -14,13 +14,15 @@ namespace AutoAPI.Models.Vehicles.Model
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         
-     //   [Range(1950,2050)]
+        [Range(1950,2050)]
         public int? Year { get; set; }
         
-      //  [Required]
+        [Required]
         public string Make { get; set; }
         
-     //   [Required]
+        [Required]
         public string Model { get; set; }
+        
+        public string SubModel { get; set; }
     }
 }    
