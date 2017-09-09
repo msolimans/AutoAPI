@@ -53,11 +53,12 @@ namespace AutoAPI
             services.AddSingleton<MContext>(new MContext(Configuration));
 
             //hooking up entity framework strategy to be used inside application 
-            services.AddTransient<IVehicle, EVehicle>();
+            //services.AddTransient<IVehicle, EVehicle>();
+            services.AddTransient<IVehicle, MVehicle>();
 
 
-            //var mcd = new MemCache(Configuration, LoggerFactory);
-            var mcd = new RedisCache(Configuration, LoggerFactory);
+            var mcd = new MemCache(Configuration, LoggerFactory);
+//            var mcd = new RedisCache(Configuration, LoggerFactory);
             
             services.AddSingleton<ICache>(mcd);
             
