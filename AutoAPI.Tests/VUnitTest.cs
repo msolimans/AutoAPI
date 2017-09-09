@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoAPI.Controllers;
+using AutoAPI.Controllers.APIs;
 using AutoAPI.Infrastructure.Caching;
 using AutoAPI.Models.Context;
 using AutoAPI.Models.Vehicles.Impl;
@@ -31,10 +32,10 @@ namespace AutoAPI.Tests
           VehiclesController vc = new VehiclesController(_vehicle, _cache);
             var vcs = vc.Get(new VehicleSearchCriteria()
             {
-                Year = 1900
+                Year = 2017
             }).GetAwaiter().GetResult();
             
-            Assert.Equal(vcs.Count(), 0);
+            Assert.InRange(vcs.Count(), 1,10);
         }
     }
 }
