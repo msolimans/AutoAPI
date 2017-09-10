@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoAPI.Infrastructure;
 using AutoAPI.Infrastructure.Caching;
+using AutoAPI.Infrastructure.Configurations;
 using AutoAPI.Models;
 using AutoAPI.Models.Context;
 using AutoAPI.Models.Vehicles.Impl;
 using AutoAPI.Models.Vehicles.Model;
 using AutoAPI.Models.Vehicles.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace AutoAPI.Controllers.APIs
 {
@@ -19,12 +21,15 @@ namespace AutoAPI.Controllers.APIs
     {
         private readonly IVehicle _vehicleService;
         private readonly ICache _cache;
+        private AppSettings _appSettings;
 
-        public VehiclesController(IVehicle vehicleService, ICache cache)
+        public VehiclesController(IVehicle vehicleService, ICache cache, IOptions<AppSettings> appSettings)
         {
             _vehicleService = vehicleService;
             _cache = cache;
+            _appSettings = appSettings.Value;
         }
+        
 
         // GET /vehicles
         [HttpGet]
