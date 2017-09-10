@@ -1,6 +1,7 @@
 ﻿using AutoAPI.Models.Context;
 using AutoAPI.Models.Vehicles.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace AutoAPI.Models.Context
 {
@@ -8,14 +9,22 @@ namespace AutoAPI.Models.Context
     {
         public const string CONNECTION_STRING_NAME = "Auto_EntityFramework";
 
-        public EContext() : base()
+        private IConfiguration _configuration;
+
+        public EContext(IConfiguration configuration)
         {
-            
+            _configuration = configuration;
         }
-        public EContext(DbContextOptions<EContext> options) : base(options)
-        {
-            
-        }
+        
+//        public EContext() : base()
+//        {
+//            
+//
+//        }
+//        public EContext(DbContextOptions<EContext> options) : base(options)
+//        {
+//            
+//        }
         
         public DbSet<Vehicle> Vehicles { get; set; }
 
@@ -24,6 +33,12 @@ namespace AutoAPI.Models.Context
         {
             modelBuilder.Entity<Vehicle>().ToTable("Vehicle");
         }
-        
+
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("Auto_EntityFramework"));
+
+        }
     }
 }
