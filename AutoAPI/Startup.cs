@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoAPI.Filters;
 using AutoAPI.Infrastructure;
 using AutoAPI.Infrastructure.Caching;
+using AutoAPI.Infrastructure.Configurations;
 using AutoAPI.Models;
 using AutoAPI.Models.Context;
 using AutoAPI.Models.Vehicles.Impl;
@@ -43,35 +44,42 @@ namespace AutoAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<EContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Auto_EntityFramework")));
-            
 
+            //Configuration DI, we can use either IConfiguration or AppSettings class  
+            services.AddOptions();
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddSingleton<IConfiguration>(Configuration);
+            
+                
+            //hook entity framework's db context for use to store data along with connection string.
+            //hooking up entity framework strategy to be used inside application 
+            services.AddDbContext<EContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("Auto_EntityFramework"))); 
+            services.AddTransient<IVehicle, EVehicle>();
+            
             
             //hook mongo context as a singleton object inside the application  (only one instance per app)
             services.AddSingleton<MContext>(new MContext(Configuration));
-
-            //hooking up entity framework strategy to be used inside application 
-            //services.AddTransient<IVehicle, EVehicle>();
-            services.AddTransient<IVehicle, MVehicle>();
+            //services.AddTransient<IVehicle, MVehicle>();
 
 
+            //caching strategy 
+            //memcached
             var mcd = new MemCache(Configuration, LoggerFactory);
-//            var mcd = new RedisCache(Configuration, LoggerFactory);
-            
+            //redis
+            //var mcd = new RedisCache(Configuration, LoggerFactory);
             services.AddSingleton<ICache>(mcd);
             
-            //in case we need to use mongodb inside the whole appliction, just comment the above line and uncomment the followinf one.
-            //services.AddTransient<IVehicle, MVehicle>();
             
-            // Add framework services.
+            // Add mvc framework with a global filter for global validation.
             services.AddMvc(options =>
             {
-                //global filter for validating model
+                //global filter for validating model 
                 options.Filters.Add(new ValidationModelAttribute());
             });
         }
+        
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
