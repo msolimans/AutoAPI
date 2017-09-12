@@ -65,9 +65,9 @@ namespace AutoAPI
 
             //caching strategy 
             //memcached
-            var mcd = new MemCache(Configuration, LoggerFactory);
+            //var mcd = new MemCache(Configuration, LoggerFactory);
             //redis
-            //var mcd = new RedisCache(Configuration, LoggerFactory);
+            var mcd = new RedisCache(Configuration, LoggerFactory);
             services.AddSingleton<ICache>(mcd);
             
             
